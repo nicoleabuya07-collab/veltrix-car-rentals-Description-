@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DRIVE | Premium Car Rental</title>
+  <!-- Font Awesome for icons (realistic look) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts for clean typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      color: #1e2a3a;
+      line-height: 1.5;
+      padding: 24px 32px;
+    }
+
+    /* main container */
+    .app {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 26px;
+      letter-spacing: -0.5px;
+      color: #0b1a2b;
+    }
+
+    .logo i {
+      color: #2d7af0;
+      font-size: 30px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      padding: 10px 18px;
+      border-radius: 60px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+      font-weight: 500;
+      font-size: 15px;
+      border: 1px solid #eef2f7;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .location i {
+      color: #2d7af0;
+      font-size: 16px;
+    }
+
+    .location:hover {
+      border-color: #2d7af0;
+      box-shadow: 0 8px 20px rgba(45, 122, 240, 0.08);
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-img {
+      width: 44px;
+      height: 44px;
+      background: #2d7af0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      box-shadow: 0 6px 14px rgba(45, 122, 240, 0.25);
+    }
+
+    .avatar-name {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .avatar-name small {
+      display: block;
+      font-weight: 400;
+      font-size: 12px;
+      color: #6b7c93;
+    }
+
+    /* hero / search section */
+    .hero {
+      background: linear-gradient(145deg, #ffffff 0%, #f9fcff 100%);
+      border-radius: 32px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.8px;
+      margin-bottom: 6px;
+      color: #0b1a2b;
+    }
+
+    .hero-sub {
+      color: #5b6f87;
+      font-size: 16px;
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr) auto;
+      gap: 12px;
+      align-items: end;
+    }
+
+    .search-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .search-field label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #6b7c93;
+    }
+
+    .search-field .input-wrapper {
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 1px solid #e6edf4;
+      border-radius: 14px;
+      padding: 0 16px;
+      height: 52px;
+      transition: all 0.2s;
+    }
+
+    .search-field .input-wrapper i {
+      color: #8b9bb0;
+      font-size: 16px;
+      margin-right: 10px;
+    }
+
+    .search-field input,
+    .search-field select {
+      border: none;
+      background: transparent;
+      width: 100%;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1e2a3a;
+      outline: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-field select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%238b9bb0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 0 center;
+    }
+
+    .search-field .input-wrapper:focus-within {
+      border-color: #2d7af0;
+      box-shadow: 0 0 0 4px rgba(45, 122, 240, 0.1);
+    }
+
+    .btn-primary {
+      background: #2d7af0;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 0 28px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 12px 22px -8px rgba(45, 122, 240, 0.4);
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-primary i {
+      font-size: 16px;
+    }
+
+    .btn-primary:hover {
+      background: #1f63d0;
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px -8px rgba(45, 122, 240, 0.5);
+    }
+
+    /* section headers */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 32px 0 20px;
+    }
+
+    .section-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #0b1a2b;
+    }
+
+    .section-header a {
+      font-weight: 600;
+      font-size: 14px;
+      color: #2d7af0;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+
+    .section-header a:hover {
+      gap: 10px;
+    }
+
+    /* car grid */
+    .car-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .car-card {
+      background: white;
+      border-radius: 24px;
+      padding: 22px 20px 20px;
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.06);
+      border: 1px solid #edf2f9;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 44px -12px rgba(0, 0, 0, 0.12);
+      border-color: #d9e5f5;
+    }
+
+    .car-image {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: #f9fcff;
+      border-radius: 20px;
+      padding: 8px;
+    }
+
+    .car-image img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.08));
+    }
+
+    .car-badge {
+      display: inline-block;
+      background: #eef6ff;
+      color: #2d7af0;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 30px;
+      margin-bottom: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    .car-name {
+      font-weight: 700;
+      font-size: 19px;
+      letter-spacing: -0.2px;
+      margin-bottom: 4px;
+      color: #0b1a2b;
+    }
+
+    .car-type {
+      font-size: 13px;
+      color: #6b7c93;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .car-type i {
+      font-size: 12px;
+      color: #8b9bb0;
+    }
+
+    .car-specs {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+      color: #4b5f78;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .car-specs span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .car-specs i {
+      color: #8b9bb0;
+      font-size: 13px;
+      width: 16px;
+    }
+
+    .car-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #eef2f7;
+    }
+
+    .price {
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+      color: #0b1a2b;
+    }
+
+    .price small {
+      font-size: 13px;
+      font-weight: 500;
+      color: #6b7c93;
+      letter-spacing: 0;
+    }
+
+    .btn-rent {
+      background: #0b1a2b;
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-rent i {
+      font-size: 12px;
+    }
+
+    .btn-rent:hover {
+      background: #2d7af0;
+      box-shadow: 0 10px 20px -6px rgba(45, 122, 240, 0.4);
+    }
+
+    /* recent bookings / activity */
+    .activity-section {
+      background: white;
+      border-radius: 28px;
+      padding: 28px 28px 20px;
+      border: 1px solid #edf2f9;
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.04);
+      margin-top: 8px;
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .activity-header h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0b1a2b;
+    }
+
+    .activity-header span {
+      font-size: 13px;
+      color: #8b9bb0;
+      font-weight: 500;
+    }
+
+    .booking-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f4fa;
+    }
+
+    .booking-item:last-child {
+      border-bottom: none;
+    }
+
+    .booking-info {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .booking-icon {
+      width: 48px;
+      height: 48px;
+      background: #eef6ff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #2d7af0;
+      font-size: 20px;
+    }
+
+    .booking-details .name {
+      font-weight: 600;
+      font-size: 15px;
+      color: #0b1a2b;
+      margin-bottom: 2px;
+    }
+
+    .booking-details .meta {
+      font-size: 13px;
+      color: #6b7c93;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .booking-details .meta i {
+      font-size: 12px;
+      margin-right: 3px;
+    }
+
+    .booking-status {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: #e6f7e6;
+      color: #1e7b3c;
+    }
+
+    .booking-status.completed {
+      background: #eef2f7;
+      color: #4b5f78;
+    }
+
+    /* responsiveness */
+    @media (max-width: 1100px) {
+      .search-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .search-grid .btn-primary {
+        grid-column: span 3;
+        justify-self: start;
+        width: auto;
+        padding: 0 32px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 16px;
+      }
+      .hero {
+        padding: 24px 20px;
+      }
+      .search-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .search-grid .btn-primary {
+        grid-column: span 1;
+        width: 100%;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .hero-title {
+        font-size: 26px;
+      }
+      .car-grid {
+        grid-template-columns: 1fr;
+      }
+      .activity-section {
+        padding: 20px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-car-side"></i> DRIVE
+      </div>
+      <div class="header-actions">
+        <div class="location">
+          <i class="fas fa-map-pin"></i> San Francisco, CA
+          <i class="fas fa-chevron-down" style="font-size: 12px; margin-left: 6px; color: #8b9bb0;"></i>
+        </div>
+        <div class="avatar">
+          <div class="avatar-img">JD</div>
+          <div class="avatar-name">
+            John Doe
+            <small>Premium member</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero search -->
+    <section class="hero">
+      <h1 class="hero-title">Find your perfect ride</h1>
+      <p class="hero-sub">Choose from our premium fleet. Free cancellation up to 24h before pickup.</p>
+      
+      <div class="search-grid">
+        <div class="search-field">
+          <label>Pick-up location</label>
+          <div class="input-wrapper">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" value="San Francisco Intl. Airport" placeholder="City or airport">
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Pick-up date</label>
+          <div class="input-wrapper">
+            <i class="fas fa-calendar-alt"></i>
+            <input type="text" value="2025-06-12" placeholder="Select date">
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Return date</label>
+          <div class="input-wrapper">
+            <i class="fas fa-calendar-check"></i>
+            <input type="text" value="2025-06-18" placeholder="Select date">
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Driver age</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <select>
+              <option>25+</option>
+              <option>21-24</option>
+              <option>18-20</option>
+            </select>
+          </div>
+        </div>
+        <div class="search-field">
+          <label>Car type</label>
+          <div class="input-wrapper">
+            <i class="fas fa-car"></i>
+            <select>
+              <option>All types</option>
+              <option>SUV</option>
+              <option>Sedan</option>
+              <option>Luxury</option>
+              <option>Convertible</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary"><i class="fas fa-search"></i> Search</button>
+      </div>
+    </section>
+
+    <!-- Featured cars -->
+    <div class="section-header">
+      <h2>Available near you</h2>
+      <a href="#">View all <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="car-grid" id="carGrid">
+      <!-- Card 1 -->
+      <div class="car-card">
+        <div class="car-image">
+          <img src="https://png.pngtree.com/png-vector/20250111/ourmid/pngtree-luxury-black-suv-car-png-image_15059940.png" alt="Range Rover Velar">
+        </div>
+        <span class="car-badge">Premium SUV</span>
+        <div class="car-name">Range Rover Velar</div>
+        <div class="car-type"><i class="fas fa-gas-pump"></i> Hybrid · 2024</div>
+        <div class="car-specs">
+          <span><i class="fas fa-user-friends"></i> 5 seats</span>
+          <span><i class="fas fa-suitcase"></i> 3 bags</span>
+          <span><i class="fas fa-cogs"></i> Auto</span>
+        </div>
+        <div class="car-footer">
+          <div class="price">$159 <small>/day</small></div>
+          <button class="btn-rent"><i class="fas fa-key"></i> Rent</button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="car-card">
+        <div class="car-image">
+          <img src="https://png.pngtree.com/png-vector/20250111/ourmid/pngtree-luxury-black-suv-car-png-image_15059940.png" alt="Tesla Model Y">
+        </div>
+        <span class="car-badge">Electric</span>
+        <div class="car-name">Tesla Model Y</div>
+        <div class="car-type"><i class="fas fa-bolt"></i> Electric · 2025</div>
+        <div class="car-specs">
+          <span><i class="fas fa-user-friends"></i> 5 seats</span>
+          <span><i class="fas fa-suitcase"></i> 2 bags</span>
+          <span><i class="fas fa-cogs"></i> Auto</span>
+        </div>
+        <div class="car-footer">
+          <div class="price">$139 <small>/day</small></div>
+          <button class="btn-rent"><i class="fas fa-key"></i> Rent</button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="car-card">
+        <div class="car-image">
+          <img src="https://png.pngtree.com/png-vector/20250111/ourmid/pngtree-luxury-black-suv-car-png-image_15059940.png" alt="BMW X5">
+        </div>
+        <span class="car-badge">Luxury</span>
+        <div class="car-name">BMW X5</div>
+        <div class="car-type"><i class="fas fa-gas-pump"></i> Petrol · 2024</div>
+        <div class="car-specs">
+          <span><i class="fas fa-user-friends"></i> 5 seats</span>
+          <span><i class="fas fa-suitcase"></i> 4 bags</span>
+          <span><i class="fas fa-cogs"></i> Auto</span>
+        </div>
+        <div class="car-footer">
+          <div class="price">$179 <small>/day</small></div>
+          <button class="btn-rent"><i class="fas fa-key"></i> Rent</button>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="car-card">
+        <div class="car-image">
+          <img src="https://png.pngtree.com/png-vector/20250111/ourmid/pngtree-luxury-black-suv-car-png-image_15059940.png" alt="Mercedes C-Class">
+        </div>
+        <span class="car-badge">Sedan</span>
+        <div class="car-name">Mercedes C-Class</div>
+        <div class="car-type"><i class="fas fa-gas-pump"></i> Petrol · 2025</div>
+        <div class="car-specs">
+          <span><i class="fas fa-user-friends"></i> 5 seats</span>
+          <span><i class="fas fa-suitcase"></i> 2 bags</span>
+          <span><i class="fas fa-cogs"></i> Auto</span>
+        </div>
+        <div class="car-footer">
+          <div class="price">$149 <small>/day</small></div>
+          <button class="btn-rent"><i class="fas fa-key"></i> Rent</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent bookings / activity -->
+    <div class="activity-section">
+      <div class="activity-header">
+        <h3>Your recent bookings</h3>
+        <span>View all <i class="fas fa-chevron-right" style="font-size: 10px;"></i></span>
+      </div>
+
+      <div class="booking-item">
+        <div class="booking-info">
+          <div class="booking-icon"><i class="fas fa-car"></i></div>
+          <div class="booking-details">
+            <div class="name">Audi Q7 · 2024</div>
+            <div class="meta"><i class="fas fa-calendar"></i> Jun 02 - Jun 07, 2025 · $945 total</div>
+          </div>
+        </div>
+        <div class="booking-status completed">Completed</div>
+      </div>
+
+      <div class="booking-item">
+        <div class="booking-info">
+          <div class="booking-icon"><i class="fas fa-bolt"></i></div>
+          <div class="booking-details">
+            <div class="name">Tesla Model 3 · 2025</div>
+            <div class="meta"><i class="fas fa-calendar"></i> May 18 - May 22, 2025 · $620 total</div>
+          </div>
+        </div>
+        <div class="booking-status completed">Completed</div>
+      </div>
+
+      <div class="booking-item">
+        <div class="booking-info">
+          <div class="booking-icon"><i class="fas fa-car-side"></i></div>
+          <div class="booking-details">
+            <div class="name">Volvo XC60 · 2024</div>
+            <div class="meta"><i class="fas fa-calendar"></i> Apr 10 - Apr 14, 2025 · $580 total</div>
+          </div>
+        </div>
+        <div class="booking-status">Upcoming</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- small interactive js: rent buttons alert, search button feedback, view all hover etc -->
+  <script>
+    (function() {
+      // realistic interaction: rent buttons
+      const rentButtons = document.querySelectorAll('.btn-rent');
+      rentButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          // get car name from parent card
+          const card = this.closest('.car-card');
+         
